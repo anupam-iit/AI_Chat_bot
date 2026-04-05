@@ -68,8 +68,8 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 # 2. INITIALIZE API & SESSION STATE
-API_KEY = ""
-client = genai.Client(api_key=API_KEY)
+api_key = st.secrets["OPENAI_API_KEY"]
+st.write("API Loaded Successfully")
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
