@@ -2,6 +2,9 @@ import streamlit as st
 from google import genai
 from google.genai import types
 
+# Create client FIRST
+client = genai.Client(api_key=st.secrets["GOOGLE_API_KEY"])
+
 # 1. PAGE CONFIG & MODERN UI STYLING
 st.set_page_config(page_title="Personalised AI Chatbot", page_icon="🤖", layout="wide")
 
