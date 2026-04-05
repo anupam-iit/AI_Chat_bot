@@ -119,12 +119,25 @@ if prompt := st.chat_input("Ask Anything..."):
         try:
             responses = client.models.generate_content_stream(
                 model="gemini-2.5-flash",
-                contents=prompt,
+                contents=[
+                    {
+                        "role": "user" if msg["role"] == "user" else "model",
+                        "parts": [{"text": msg["content"]}]
+                    }
+                    for msg in st.session_state.messages
+                ],
                 config=types.GenerateContentConfig(
-                    system_instruction="You are a professional Academic Agent. Be direct, formal, and precise.",
-                    temperature=0.7
-                )
+                system_instruction="""
+                You are an expert academic and analytical assistant.
+                - Always consider full conversation history
+                - Answer step-by-step when needed
+                - Be precise, not verbose
+                - If unclear, ask for clarification
+                - Provide examples for technical topics
+                """,
+                temperature=0.3   # lower = smarter, less random
             )
+        )
             
             for chunk in responses:
                 full_response += chunk.text
