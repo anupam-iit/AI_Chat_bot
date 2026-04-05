@@ -69,7 +69,7 @@ st.markdown("""
 
 # 2. INITIALIZE API & SESSION STATE
 api_key = st.secrets["GOOGLE_API_KEY"]
-client = genai.Client(api_key=GOOGLE_API_KEY)
+
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
